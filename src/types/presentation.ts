@@ -1,6 +1,6 @@
 export interface PresentationData {
-  templateName: string;
-  templateData: Array<Slide>;
+  templateId: string;
+  templateData: Array<Slide> | null;
 }
 
 interface Slide {
