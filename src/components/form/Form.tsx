@@ -18,27 +18,9 @@ const Form = () => {
 
     <ChooseTemplateInput presentationData={presentationData} setPresentationData={setPresentationData} />
 
-    <SlideTabs presentationData={presentationData} setPresentationData={setPresentationData} />
-
-    {/* <Tabs>
-     <TabList>
-      <Tab>One</Tab>
-      <Tab>Two</Tab>
-      <Tab>Three</Tab>
-     </TabList>
-
-     <TabPanels>
-      <TabPanel>
-       <p>one!</p>
-      </TabPanel>
-      <TabPanel>
-       <p>two!</p>
-      </TabPanel>
-      <TabPanel>
-       <p>three!</p>
-      </TabPanel>
-     </TabPanels>
-    </Tabs> */}
+    {presentationData?.templateId && (
+     <SlideTabs presentationData={presentationData} setPresentationData={setPresentationData} />
+    )}
    </CardBody>
   </Card>
  );

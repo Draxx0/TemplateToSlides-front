@@ -1,6 +1,6 @@
 import { FormControl, FormHelperText, FormLabel, Select, Skeleton, Stack } from "@chakra-ui/react";
-import useGetTemplate from "../../hooks/useGetTemplates";
 import { PresentationData } from "../../types/presentation";
+import useGetTemplates from "../../hooks/useGetTemplates";
 
 type Props = {
  presentationData: PresentationData | null;
@@ -9,7 +9,7 @@ type Props = {
 
 const ChooseTemplateInput = ({ presentationData, setPresentationData }: Props) => {
 
- const { data: templates, isLoading } = useGetTemplate()
+ const { data: templates, isLoading } = useGetTemplates()
 
  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 
