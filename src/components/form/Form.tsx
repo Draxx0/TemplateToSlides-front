@@ -1,16 +1,12 @@
 import { Box, Card, CardBody, Heading } from "@chakra-ui/react";
 import ChooseTemplateInput from "./ChooseTemplateInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PresentationData } from "../../types/presentation";
 import SlideTabs from "./SlideTabs";
 
 const Form = () => {
  const [presentationData, setPresentationData] = useState<PresentationData | null>(null);
 
-
- useEffect(() => {
-  console.log("ID :", presentationData?.templateId, "is", !!presentationData?.templateId)
- }, [presentationData?.templateId])
  return (
   <Box
    style={{
@@ -33,7 +29,7 @@ const Form = () => {
      minHeight: presentationData?.templateId ? "600px" : "200px"
     }}>
     <CardBody display={"flex"} flexDirection={"column"} gap={6}>
-     <Heading size={"lg"}>Formulaire de création de slides</Heading>
+     <Heading size={"lg"}>Créer votre présentation <Box as="span" textDecoration={"underline"}>Reveal.JS</Box></Heading>
 
      <ChooseTemplateInput
       presentationData={presentationData}
