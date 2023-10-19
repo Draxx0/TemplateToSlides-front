@@ -19,13 +19,13 @@ const ChooseTemplateInput = ({ presentationData, setPresentationData }: Props) =
 
  const createSlidesSchema = useCallback(() => {
   if (template) {
-   const slidesSchema: Slide[] = template.templateSchema.map(() => {
+   const slidesSchema: Slide[] = template.templateSchema.map((slide) => {
     return {
      slideTitle: "",
      slideDescription: "",
-     slideSmallText: "",
+     ...(slide.slideSmallText.isPresent ? { slideSmallText: "" } : {}),
      slideTransition: "",
-     image: "",
+     ...(slide.image.isPresent ? { image: "" } : {})
     }
    })
 
@@ -47,15 +47,21 @@ const ChooseTemplateInput = ({ presentationData, setPresentationData }: Props) =
  }, [createSlidesSchema])
 
  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  setPresentationData(prevState => {
-   if (prevState) {
-    return {
-     ...prevState,
-     templateId: event.target.value
+  if (presentationData) {
+   setPresentationData(prevState => {
+    if (prevState) {
+     return {
+      ...prevState,
+      templateId: event.target.value
+     }
     }
-   }
+    return null
+   })
+  }
 
-   return null
+  setPresentationData({
+   templateId: event.target.value,
+   templateData: null
   })
  }
 

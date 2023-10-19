@@ -11,7 +11,7 @@ export interface SlideSchema {
   slideDescription: SlideSchemaParams;
   slideSmallText: SlideSchemaParams;
   slideTransition: SlideSchemaParams;
-  slideImage: SlideSchemaParams;
+  image: SlideSchemaParams;
 }
 
 export interface SlideSchemaParams {

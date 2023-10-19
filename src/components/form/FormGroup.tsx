@@ -1,16 +1,16 @@
-import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
 import { SlideSchema, SlideSchemaParams } from "../../types/template";
 import { PresentationData } from "../../types/presentation";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
+import { transitions } from "../../data/transitions";
 
 type Props = {
  slide: SlideSchema;
  presentationData: PresentationData | null;
- index: number;
  setPresentationData: React.Dispatch<React.SetStateAction<PresentationData | null>>
 }
 
-const FormGroup = ({ slide, presentationData, setPresentationData, index }: Props) => {
+const FormGroup = ({ slide, presentationData, setPresentationData }: Props) => {
 
  const slidePresentInput = useMemo(() => {
   const presentInput: Record<string, SlideSchemaParams> = {};
@@ -22,72 +22,59 @@ const FormGroup = ({ slide, presentationData, setPresentationData, index }: Prop
   return presentInput;
  }, [slide])
 
+ const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  handleChange("slideTransition", event);
+ };
 
- const handleChange = (key: string, event: React.ChangeEvent<HTMLInputElement>) => {
+
+ const handleChange = (key: string, event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
   const { value } = event.target;
   const slideId = slide.slideId;
 
-  setPresentationData(prevState => {
-   if (prevState) {
-    if (!prevState.templateData) {
-     // console.log("NO DATA IN TEMPLATE DATE YET")
+  if (presentationData?.templateData) {
 
-     return {
-      ...prevState,
-      templateData: [
-       {
-        [key]: value
-       }
-      ]
-     }
-    }
-
-    // console.log("THERE IS SOME DATA IN TEMPLATE DATA")
-
-    // console.log("INDEX!!!", index)
-
-    const updatedTemplateData = prevState.templateData.map((slide) => {
-     console.log("CURRENT SLIDE", slide)
-
-     const currentSlide = prevState.templateData && prevState.templateData[index]
-
-     console.log("CURRENT SLIDE :", currentSlide)
-
-     if (!currentSlide) {
-      return {
-       [key]: value
-      };
-     }
-
-     // console.log("OK !")
+   const updatedTemplateData = presentationData.templateData.map((slide, index) => {
+    if (index === slideId - 1) {
      return {
       ...slide,
       [key]: value
-     };
+     }
+    }
 
-    });
+    return slide
+   })
 
-    return {
-     ...prevState,
-     templateData: updatedTemplateData
-    };
-   }
-   return prevState;
-  });
+   setPresentationData(prevState => {
+    if (prevState) {
+     return {
+      ...prevState,
+      templateData: updatedTemplateData
+     }
+    }
+
+    return prevState
+   })
+  }
  };
 
- useEffect(() => {
-  if (presentationData) console.log("PRESENTATION DATA", presentationData)
- }, [presentationData])
 
-
- const formControls = Object.entries(slidePresentInput).map(([key, value]) => (
+ const formControls = Object.entries(slidePresentInput).map(([key, value], index) => (
   <FormControl key={key}>
    <FormLabel>{value.text}</FormLabel>
-   <Input
-    type="text"
-    onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(key, event)}
-   />
+   {key === "slideTransition" ? (
+    <Select placeholder='Veuillez choisir une transition' onChange={handleSelectChange}>
+     {transitions.map((transition, index) => (
+      <option key={index} value={transition}>{transition}</option>
+     ))}
+    </Select>
+   ) : (
+    <Input
+     type="text"
+     required
+     name={`${key}${index}`}
+     onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChange(key, event)}
+    />
+   )}
   </FormControl>
  ));
 

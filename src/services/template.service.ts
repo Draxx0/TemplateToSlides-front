@@ -1,3 +1,4 @@
+import { PresentationData } from "../types/presentation";
 import { Template } from "../types/template";
 
 export const getTemplates = async (): Promise<Template[]> => {
@@ -22,4 +23,25 @@ export const getTemplate = async (id: string | null): Promise<Template> => {
   }
 
   return response;
+};
+
+export const generateTemplate = async (
+  body: PresentationData
+): Promise<string> => {
+  const response: Response = await fetch(
+    `${import.meta.env.VITE_APP_API_URL}/templates/generate-template`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Erreur lors de l'envoi des données");
+  }
+
+  return response.json();
 };
