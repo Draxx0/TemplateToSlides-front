@@ -37,7 +37,7 @@ const SlideTabs = ({ presentationData, setPresentationData }: Props) => {
     />
     <link
      rel="stylesheet"
-     href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"
+     href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/solarized.min.css"
     />
     <link
      rel="stylesheet"
