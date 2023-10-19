@@ -1,15 +1,11 @@
 import { Card, CardBody, Heading } from "@chakra-ui/react";
 import ChooseTemplateInput from "./ChooseTemplateInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PresentationData } from "../../types/presentation";
 import SlideTabs from "./SlideTabs";
 
 const Form = () => {
  const [presentationData, setPresentationData] = useState<PresentationData | null>(null)
-
- useEffect(() => {
-  if (presentationData) console.log("PRESENTATION DATA", presentationData)
- }, [presentationData])
 
  return (
   <Card maxWidth={"50%"}>

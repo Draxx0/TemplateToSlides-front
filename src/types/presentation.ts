@@ -3,7 +3,7 @@ export interface PresentationData {
   templateData: Array<Slide> | null;
 }
 
-interface Slide {
+export interface Slide {
   slideTitle: string;
   slideDescription?: string;
   slideSmallText?: string;
@@ -11,6 +11,13 @@ interface Slide {
   image?: string;
 }
 
-type Transition = "zoom" | "fast" | "slide" | "convex" | "concave" | "fade";
+type Transition =
+  | ""
+  | "zoom"
+  | "fast"
+  | "slide"
+  | "convex"
+  | "concave"
+  | "fade";
 
 export type Stack = "r-stack" | "r-stretch" | "r-fit-text";

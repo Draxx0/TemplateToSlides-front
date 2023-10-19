@@ -1,6 +1,8 @@
 import { FormControl, FormHelperText, FormLabel, Select, Skeleton, Stack } from "@chakra-ui/react";
-import { PresentationData } from "../../types/presentation";
+import { PresentationData, Slide } from "../../types/presentation";
 import useGetTemplates from "../../hooks/useGetTemplates";
+import useGetTemplate from "../../hooks/useGetTemplate";
+import { useCallback, useEffect } from "react";
 
 type Props = {
  presentationData: PresentationData | null;
@@ -11,11 +13,49 @@ const ChooseTemplateInput = ({ presentationData, setPresentationData }: Props) =
 
  const { data: templates, isLoading } = useGetTemplates()
 
- const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+ const { data: template } = useGetTemplate({
+  id: presentationData?.templateId ?? null
+ })
 
-  setPresentationData({
-   templateId: event.target.value,
-   templateData: presentationData?.templateData ?? null
+ const createSlidesSchema = useCallback(() => {
+  if (template) {
+   const slidesSchema: Slide[] = template.templateSchema.map(() => {
+    return {
+     slideTitle: "",
+     slideDescription: "",
+     slideSmallText: "",
+     slideTransition: "",
+     image: "",
+    }
+   })
+
+   setPresentationData(prevState => {
+    if (prevState) {
+     return {
+      ...prevState,
+      templateData: slidesSchema
+     }
+    }
+
+    return null
+   })
+  }
+ }, [setPresentationData, template])
+
+ useEffect(() => {
+  createSlidesSchema()
+ }, [createSlidesSchema])
+
+ const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  setPresentationData(prevState => {
+   if (prevState) {
+    return {
+     ...prevState,
+     templateId: event.target.value
+    }
+   }
+
+   return null
   })
  }
 
@@ -34,7 +74,7 @@ const ChooseTemplateInput = ({ presentationData, setPresentationData }: Props) =
        <option key={template.id} value={template.id}>{template.templateName}</option>
       ))}
      </Select>
-     <FormHelperText>We'll never share your email.</FormHelperText>
+     <FormHelperText>Choisissez un thème parmis ce disponible.</FormHelperText>
     </FormControl>
    ) : (
     <>Error !</>

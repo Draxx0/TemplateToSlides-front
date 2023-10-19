@@ -1,4 +1,4 @@
-import { Spinner, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Button, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import useGetTemplate from "../../hooks/useGetTemplate";
 import { PresentationData } from "../../types/presentation";
 import { useState } from "react";
@@ -15,8 +15,9 @@ const SlideTabs = ({ presentationData, setPresentationData }: Props) => {
   id: presentationData?.templateId ?? null
  })
 
- console.log("TEMPLATE", template)
-
+ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+ }
 
  return (
   <>
@@ -30,15 +31,19 @@ const SlideTabs = ({ presentationData, setPresentationData }: Props) => {
       ))}
      </TabList>
 
-     <TabPanels>
-      {template.templateSchema.map((slide, index) => (
+     <form onSubmit={handleSubmit}>
+      <TabPanels>
+       {template.templateSchema.map((slide, index) => (
 
-       < TabPanel key={index} >
-        Slide {JSON.stringify(slide)}
-        <SlideTab slide={slide} setPresentationData={setPresentationData} presentationData={presentationData} />
-       </TabPanel>
-      ))}
-     </TabPanels>
+        <TabPanel key={index}>
+         Slide STRINGIFY : {JSON.stringify(slide)}
+         <SlideTab slide={slide} index={index} setPresentationData={setPresentationData} presentationData={presentationData} />
+        </TabPanel>
+       ))}
+      </TabPanels>
+
+      <Button variant={"outline"} type="submit" >Submit</Button>
+     </form>
     </Tabs >
    ) : isLoading ? (
     <Spinner />

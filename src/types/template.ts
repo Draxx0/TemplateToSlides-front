@@ -6,6 +6,7 @@ export interface Template {
 }
 
 export interface SlideSchema {
+  slideId: number;
   slideTitle: SlideSchemaParams;
   slideDescription: SlideSchemaParams;
   slideSmallText: SlideSchemaParams;

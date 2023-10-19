@@ -6,14 +6,15 @@ import { PresentationData } from "../../types/presentation";
 type Props = {
  slide: SlideSchema;
  presentationData: PresentationData | null;
+ index: number;
  setPresentationData: React.Dispatch<React.SetStateAction<PresentationData | null>>
 }
 
-const SlideTab = ({ slide, presentationData, setPresentationData }: Props) => {
+const SlideTab = ({ slide, presentationData, setPresentationData, index }: Props) => {
  return (
   <>
    <Heading size={"lg"} my={10}>Slide Configuration</Heading>
-   <FormGroup slide={slide} presentationData={presentationData} setPresentationData={setPresentationData} />
+   <FormGroup slide={slide} presentationData={presentationData} index={index} setPresentationData={setPresentationData} />
   </>
  );
 }
