@@ -32,13 +32,10 @@ const SlideTabs = ({ presentationData, setPresentationData }: Props) => {
  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
 
-  console.log(presentationData)
-
   try {
    if (presentationData) {
     const response = await generateTemplate(presentationData)
-
-    console.log(response)
+    //! CHECK WRITE FILE TO INSERT REVEAL CODE & ADD TOAST || MODAL ?
    }
   } catch (error) {
    throw new Error("An error occured during template generation")
