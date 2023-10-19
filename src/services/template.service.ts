@@ -40,8 +40,10 @@ export const generateTemplate = async (
   );
 
   if (!response.ok) {
-    throw new Error("Erreur lors de l'envoi des données");
+    throw new Error(`Erreur HTTP: ${response.statusText}`);
   }
 
-  return response.json();
+  const result: string = await response.json();
+
+  return result;
 };
