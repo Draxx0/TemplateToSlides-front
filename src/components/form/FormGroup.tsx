@@ -79,7 +79,7 @@ const FormGroup = ({ slide, presentationData, setPresentationData }: Props) => {
  ));
 
  return (
-  <Box display={"flex"} flexDirection={"column"} gap={10}>
+  <Box display={"grid"} gridTemplateColumns={"repeat(3, 1fr)"} gap={10}>
    {formControls}
   </Box>
  );
