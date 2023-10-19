@@ -67,6 +67,10 @@ const SlideTabs = ({ presentationData, setPresentationData }: Props) => {
  };
 
  useEffect(() => {
+  if (presentationData) console.log(presentationData)
+ }, [presentationData])
+
+ useEffect(() => {
   if (presentationData?.templateData) {
    setIsButtonDisabled(areAllSlidesValid(presentationData?.templateData))
   }

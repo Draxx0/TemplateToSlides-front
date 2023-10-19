@@ -22,7 +22,7 @@ const ChooseTemplateInput = ({ presentationData, setPresentationData }: Props) =
    const slidesSchema: Slide[] = template.templateSchema.map((slide) => {
     return {
      slideTitle: "",
-     slideDescription: "",
+     ...(slide.slideDescription.isPresent ? { slideDescription: "" } : {}),
      ...(slide.slideSmallText.isPresent ? { slideSmallText: "" } : {}),
      slideTransition: "",
      ...(slide.image.isPresent ? { image: "" } : {})
