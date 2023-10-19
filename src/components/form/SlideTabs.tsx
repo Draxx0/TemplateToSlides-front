@@ -4,6 +4,9 @@ import { PresentationData, Slide } from "../../types/presentation";
 import { useEffect, useState } from "react";
 import SlideTab from "./SlideTab";
 import { generateTemplate } from "../../services/template.service";
+import TemplateCode from "../TemplateCode";
+import { renderToStaticMarkup } from 'react-dom/server';
+
 
 type Props = {
  presentationData: PresentationData | null;
@@ -23,6 +26,46 @@ const SlideTabs = ({ presentationData, setPresentationData }: Props) => {
   })
  }
 
+ const generateAndDownloadHTML = () => {
+  const htmlContent = `
+  <!DOCTYPE html>
+   <html lang="en">
+     <head>
+     <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"
+    />
+    <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css"
+    />
+    <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/monokai.min.css"
+    />
+     </head>
+        <body>
+          ${renderToStaticMarkup(<TemplateCode />)}
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+          <script>
+            Reveal.initialize({
+              plugins: [RevealHighlight],
+            });
+          </script>
+        </body>   
+      </html>
+    `;
+
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.download = 'presentation-reveal.html';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+ };
+
  useEffect(() => {
   if (presentationData?.templateData) {
    setIsButtonDisabled(areAllSlidesValid(presentationData?.templateData))
@@ -35,9 +78,12 @@ const SlideTabs = ({ presentationData, setPresentationData }: Props) => {
   try {
    if (presentationData) {
     const response = await generateTemplate(presentationData)
+    localStorage.setItem("presentation_code", response)
+    generateAndDownloadHTML()
     //! CHECK WRITE FILE TO INSERT REVEAL CODE & ADD TOAST || MODAL ?
    }
   } catch (error) {
+   console.log(error)
    throw new Error("An error occured during template generation")
   }
  }
@@ -63,7 +109,7 @@ const SlideTabs = ({ presentationData, setPresentationData }: Props) => {
        ))}
       </TabPanels>
 
-      <Button isDisabled={!isButtonDisabled} variant={"outline"} margin={"10px 0 auto auto"} display={"flex"} type="submit" >Générer ma présentation</Button>
+      <Button isDisabled={!isButtonDisabled} variant={"outline"} margin={"10px 0 auto auto"} display={"flex"} type="submit" >Générer et télécharger ma présentation</Button>
      </Box>
 
      <Box display={"flex"} justifyContent={"space-between"}>
