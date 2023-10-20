@@ -97,7 +97,7 @@ const UserDashboard = () => {
                           <Td>{presentation.presentationName}</Td>
                           <Td>{presentation.createdAt}</Td>
                           <Td className="cursor-pointer" onClick={() => handleDownloadPresentation(presentation)}>
-                            <DownloadIcon />
+                            <DownloadIcon className="float-right" />
                           </Td>
                         </Tr>
                       ))}
