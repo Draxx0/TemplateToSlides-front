@@ -1,5 +1,5 @@
-const TemplateCode = () => {
- const presentationCode = localStorage.getItem("presentation_code")
+const TemplateCode = ({ presentationCode }: { presentationCode: string; }) => {
+ // const presentationCode = localStorage.getItem("presentation_code")
  if (presentationCode) {
   return (
    <div className="reveal" dangerouslySetInnerHTML={{

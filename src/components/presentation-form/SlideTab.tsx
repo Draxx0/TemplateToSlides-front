@@ -13,7 +13,7 @@ type Props = {
 const SlideTab = ({ slide, presentationData, setPresentationData, index }: Props) => {
  return (
   <>
-   <Heading size={"lg"} my={10}>Slide {index + 1} Configuration</Heading>
+   <Heading size={"lg"} my={2}>Slide {index + 1} Configuration</Heading>
    <FormGroup slide={slide} presentationData={presentationData} setPresentationData={setPresentationData} />
   </>
  );
