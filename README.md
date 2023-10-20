@@ -55,6 +55,14 @@ Use git to clone this repository into your computer.
 git clone https://github.com/Draxx0/TemplateToSlides-front.git
 ```
 
+```
+cd ./TemplateToSlides
+```
+
+```
+pnpm i
+```
+
 Env variables.
 ​
 
