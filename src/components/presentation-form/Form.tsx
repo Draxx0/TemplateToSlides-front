@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, Heading } from "@chakra-ui/react";
+import { Box, Card, CardBody, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
 import ChooseTemplateInput from "./ChooseTemplateInput";
 import { useState } from "react";
 import { PresentationData } from "../../types/presentation";
@@ -7,17 +7,10 @@ import SlideTabs from "./SlideTabs";
 const Form = () => {
  const [presentationData, setPresentationData] = useState<PresentationData | null>(null);
 
+ const [presentationName, setPresentationName] = useState<string | null>(null);
+
  return (
-  <Box
-   style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "100vh",
-    position: "relative",
-    overflow: "hidden",
-   }}
-  >
+  <>
    <Box
     position={"absolute"} inset={0} zIndex={0} backgroundImage={`url('./assets/bg.jpg')`} backgroundPosition={"center"} backgroundRepeat={"no-repeat"} backgroundSize={"cover"}
    ></Box>
@@ -36,12 +29,17 @@ const Form = () => {
       setPresentationData={setPresentationData}
      />
 
+     <FormControl>
+      <FormLabel>Nom de votre présentation</FormLabel>
+      <Input type="text" required placeholder="ESD-Présentation" onChange={(e) => setPresentationName(e.target.value)} />
+     </FormControl>
+
      {presentationData?.templateId && (
-      <SlideTabs presentationData={presentationData} setPresentationData={setPresentationData} />
+      <SlideTabs presentationName={presentationName} presentationData={presentationData} setPresentationData={setPresentationData} />
      )}
     </CardBody>
    </Card>
-  </Box >
+  </>
  );
 };
 

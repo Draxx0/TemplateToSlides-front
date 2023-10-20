@@ -21,3 +21,13 @@ type Transition =
   | "fade";
 
 export type Stack = "r-stack" | "r-stretch" | "r-fit-text";
+
+export interface PresentationSave {
+  presentationName: string;
+  presentationCode: string;
+}
+
+export interface Presentation extends PresentationSave {
+  id: string;
+  createdAt: string;
+}

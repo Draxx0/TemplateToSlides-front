@@ -1,12 +1,15 @@
+import { BrowserRouter } from "react-router-dom";
 import Layout from "./layout/Layout";
-import Form from "./components/form/Form";
+import Router from "./router/Router";
 
 function App() {
 
   return (
-    <Layout>
-      <Form />
-    </Layout>
+    <BrowserRouter>
+      <Layout>
+        <Router />
+      </Layout>
+    </BrowserRouter>
   )
 }
 
