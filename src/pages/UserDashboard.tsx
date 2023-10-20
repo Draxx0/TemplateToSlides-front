@@ -52,8 +52,8 @@ const UserDashboard = () => {
     link.click();
     document.body.removeChild(link);
     toast({
-      title: "Présentation crée",
-      description: `La présentation : ${presentation.presentationName} a bien était crée`,
+      title: "Présentation téléchargé",
+      description: `La présentation : ${presentation.presentationName} a bien était téléchargé`,
       status: 'success',
       duration: 9000,
       isClosable: true,
