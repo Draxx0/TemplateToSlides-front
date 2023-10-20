@@ -34,7 +34,7 @@ const SlideTabs = ({ presentationData, setPresentationData, presentationName }: 
 
   const generateAndDownloadHTML = async () => {
     const currentPresentationCode = localStorage.getItem("presentation_code")
-
+    console.log(currentPresentationCode)
     if (currentPresentationCode) {
       const htmlContent = `
       <!DOCTYPE html>
@@ -69,7 +69,7 @@ const SlideTabs = ({ presentationData, setPresentationData, presentationName }: 
       const blob = new Blob([htmlContent], { type: 'text/html' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = 'presentation-reveal.html';
+      link.download = `${presentationName}.html`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
