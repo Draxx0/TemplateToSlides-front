@@ -60,7 +60,11 @@ cd ./TemplateToSlides
 ```
 
 ```
-pnpm i
+pnpm install
+```
+
+```
+pnpm run dev
 ```
 
 Env variables.
