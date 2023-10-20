@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Auth from "../pages/Auth";
 import ProtectedRoute from "./ProtectedRoute";
 import PresentationApp from "../pages/PresentationApp";
@@ -8,7 +8,8 @@ const Router = () => {
  return (
   <Routes>
    <Route element={<ProtectedRoute />}>
-    <Route path="*" />
+    <Route path="*" element={<></>} />
+    <Route path="/" element={<Navigate to={"/app"} />} />
     <Route path="/app" element={<PresentationApp />} />
     <Route path="/user-dashboard" element={<UserDashboard />} />
    </Route>
