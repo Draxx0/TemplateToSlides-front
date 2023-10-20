@@ -55,7 +55,7 @@ Use git to clone this repository into your computer.
 git clone https://github.com/Draxx0/TemplateToSlides-front.git
 ```
 
-and then the folllowing commands in your terminal.
+Env variables.
 ​
 
 ```
