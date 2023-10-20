@@ -105,9 +105,15 @@ const SlideTabs = ({ presentationData, setPresentationData, presentationName }: 
 
   useEffect(() => {
     if (presentationData?.templateData) {
-      setIsButtonDisabled(areAllSlidesValid(presentationData?.templateData))
+      const isFormFilled = areAllSlidesValid(presentationData?.templateData)
+
+      if (isFormFilled && presentationName) {
+        setIsButtonDisabled(true)
+      } else {
+        setIsButtonDisabled(false)
+      }
     }
-  }, [presentationData?.templateData])
+  }, [presentationData?.templateData, presentationName])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
